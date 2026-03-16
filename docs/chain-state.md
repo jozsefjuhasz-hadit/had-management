@@ -1,6 +1,6 @@
 ---
 status: active
-last-updated: 2026-03-13
+last-updated: 2026-03-14
 owner: juhaszj
 ---
 
@@ -18,8 +18,9 @@ Chain 2 — Legacy project rewrite
 | 1 | Business Analysis | business-analyst | APPROVED | [BRD-had-management.md](./brd/BRD-had-management.md) | 2026-03-13 |
 | 2 | UX Research | ux-researcher | APPROVED | [personas](./research/research-2026-had-management-personas.md), [journey maps](./research/research-2026-had-management-journey-maps.md), [handoff](./research/research-2026-had-management-handoff.md) | 2026-03-13 |
 | 3 | PRD Writing | product-manager | APPROVED | [PRD-auth](./prd/PRD-auth.md), [PRD-contacts](./prd/PRD-contacts.md), [PRD-deals](./prd/PRD-deals.md), [PRD-reports](./prd/PRD-reports.md), [PRD-mcp-tools](./prd/PRD-mcp-tools.md) | 2026-03-13 |
-| 4 | Technical Spec | tech-lead | PENDING | — | — |
-| 5 | Implementation | developer | PENDING | — | — |
+| 3b | UI Prototype | ui-prototyper | BYPASSED | — bypassed: legacy chain, TSDs written directly from approved PRDs | 2026-03-14 |
+| 4 | Technical Spec | tech-lead | APPROVED | [TSD-auth](./specs/TSD-auth.md), [TSD-contacts](./specs/TSD-contacts.md), [TSD-deals](./specs/TSD-deals.md), [TSD-reports](./specs/TSD-reports.md), [TSD-mcp-tools](./specs/TSD-mcp-tools.md) | 2026-03-14 |
+| 5 | Implementation | Claude Code main context | PENDING | — | — |
 
 ## Resolved blocking items (pre-TSD)
 
