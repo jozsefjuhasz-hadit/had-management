@@ -18,7 +18,7 @@ import {
   ChevronRightIcon,
 } from "lucide-react"
 import type { DealStage, Currency } from "@/lib/types"
-import { STAGE_LABELS, STAGE_BADGE_VARIANTS } from "@/lib/constants"
+import { STAGE_LABELS, STAGE_BADGE_CLASSES } from "@/lib/constants"
 import { formatCurrency } from "@/lib/format"
 
 // ─── Mock data (will be replaced by server data) ─────────────────────────────
@@ -88,7 +88,7 @@ const MOCK_NEXT_STEPS: UpcomingStep[] = [
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6 p-8 max-w-6xl">
       <PageHeader
         title="Irányítópult"
         subtitle="Jó reggelt, Péter. Itt a pipeline áttekintésed."
@@ -97,17 +97,17 @@ export default function DashboardPage() {
       {/* KPI cards */}
       <div className="grid grid-cols-4 gap-4">
         {MOCK_KPIS.map((kpi) => (
-          <Card key={kpi.label}>
+          <Card key={kpi.label} className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {kpi.label}
                 </CardTitle>
                 <span className="text-muted-foreground">{kpi.icon}</span>
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-semibold leading-none">{kpi.value}</p>
+              <p className="text-2xl font-semibold leading-none text-primary">{kpi.value}</p>
               <p className="text-xs text-muted-foreground mt-1">{kpi.sub}</p>
             </CardContent>
           </Card>
@@ -116,7 +116,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-2 gap-4">
         {/* Recent deals */}
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Legutóbbi ügyletek</CardTitle>
@@ -135,7 +135,7 @@ export default function DashboardPage() {
                 <Link
                   key={deal.id}
                   href={`/deals/${deal.id}`}
-                  className="flex items-center gap-3 py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-colors"
+                  className="flex items-center gap-3 py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-[background-color] duration-150"
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{deal.title}</p>
@@ -144,7 +144,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <Badge variant={STAGE_BADGE_VARIANTS[deal.stage]}>
+                    <Badge className={STAGE_BADGE_CLASSES[deal.stage]}>
                       {STAGE_LABELS[deal.stage]}
                     </Badge>
                     <span className="text-xs text-muted-foreground">
@@ -158,7 +158,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Upcoming next steps */}
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Következő lépések</CardTitle>
@@ -182,7 +182,7 @@ export default function DashboardPage() {
                   <Link
                     key={step.dealId}
                     href={`/deals/${step.dealId}`}
-                    className="flex items-center gap-3 py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-colors"
+                    className="flex items-center gap-3 py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-[background-color] duration-150"
                   >
                     <CalendarIcon className="size-4 text-muted-foreground shrink-0" />
                     <div className="flex-1 min-w-0">
@@ -205,7 +205,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Pipeline by stage */}
-      <Card>
+      <Card className="shadow-sm">
         <CardHeader>
           <CardTitle>Pipeline fázis szerint</CardTitle>
           <CardDescription>
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                     key={stage}
                     className="flex flex-col items-center gap-1 min-w-20"
                   >
-                    <Badge variant={STAGE_BADGE_VARIANTS[stage]}>
+                    <Badge className={STAGE_BADGE_CLASSES[stage]}>
                       {STAGE_LABELS[stage]}
                     </Badge>
                     <span className="text-2xl font-semibold">{count}</span>

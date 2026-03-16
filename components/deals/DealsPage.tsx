@@ -32,7 +32,7 @@ import {
   STAGES,
   STAGE_LABELS,
   STAGE_DESCRIPTIONS,
-  STAGE_BADGE_VARIANTS,
+  STAGE_BADGE_CLASSES,
 } from "@/lib/constants"
 import { formatCurrency } from "@/lib/format"
 import { MOCK_DEALS, MOCK_CONTACTS, MOCK_USERS, getUserName, getContact } from "@/lib/mock-data"
@@ -347,7 +347,7 @@ export default function DealsPage() {
 
   if (deals.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-8">
         <TrendingUpIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">Még nincsenek ügyletek.</p>
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
@@ -367,7 +367,7 @@ export default function DealsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-8 max-w-6xl">
       {successMessage && (
         <Alert>
           <AlertTitle>Sikeres</AlertTitle>
@@ -395,30 +395,30 @@ export default function DealsPage() {
 
       {/* KPI summary */}
       <div className="grid grid-cols-3 gap-3">
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">Aktív pipeline</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Aktív pipeline</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">{activeDeals.length}</p>
+            <p className="text-2xl font-semibold text-primary">{activeDeals.length}</p>
             <p className="text-xs text-muted-foreground">nyitott ügylet</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">Megnyert (év)</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Megnyert (év)</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">{wonDeals.length}</p>
+            <p className="text-2xl font-semibold text-primary">{wonDeals.length}</p>
             <p className="text-xs text-muted-foreground">lezárt ügylet</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">Esedékes lépések</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Esedékes lépések</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">
+            <p className="text-2xl font-semibold text-primary">
               {deals.filter((d) => d.nextStepDue && d.nextStepDue <= "2026-03-20").length}
             </p>
             <p className="text-xs text-muted-foreground">7 napon belül</p>
@@ -456,7 +456,7 @@ export default function DealsPage() {
       </div>
 
       {/* Deals list */}
-      <Card>
+      <Card className="shadow-sm">
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
@@ -465,7 +465,7 @@ export default function DealsPage() {
             </div>
           ) : (
             <div className="divide-y">
-              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground">
+              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <span>Cím / Kapcsolat</span>
                 <span>Érték</span>
                 <span>Fázis</span>
@@ -478,7 +478,7 @@ export default function DealsPage() {
                   <Link
                     key={deal.id}
                     href={`/deals/${deal.id}`}
-                    className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-colors items-center"
+                    className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 items-center"
                   >
                     <div className="min-w-0">
                       <p className="font-medium truncate">{deal.title}</p>
@@ -492,7 +492,7 @@ export default function DealsPage() {
                       {formatCurrency(deal.value, deal.currency)}
                     </div>
                     <div>
-                      <Badge variant={STAGE_BADGE_VARIANTS[deal.stage]}>
+                      <Badge className={STAGE_BADGE_CLASSES[deal.stage]}>
                         {STAGE_LABELS[deal.stage]}
                       </Badge>
                     </div>

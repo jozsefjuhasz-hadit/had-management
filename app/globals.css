@@ -68,20 +68,34 @@
   --border: #d1dce1;
   --input: #d1dce1;
   --ring: #10B3BA;
-  --radius: 0.375rem;
+  --radius: 0.75rem;
   --chart-1: #10B3BA;
   --chart-2: #142733;
   --chart-3: #0e9fa6;
   --chart-4: #4dc9cc;
   --chart-5: #065559;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #142733;
-  --sidebar-primary: #10B3BA;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e6f7f8;
-  --sidebar-accent-foreground: #065559;
-  --sidebar-border: #d1dce1;
-  --sidebar-ring: #10B3BA;
+  /* Sidebar — always dark */
+  --sidebar: oklch(0.17 0.025 230);
+  --sidebar-foreground: oklch(0.85 0.02 195 / 0.75);
+  --sidebar-primary: oklch(0.70 0.10 195);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.70 0.10 195 / 0.12);
+  --sidebar-accent-foreground: oklch(0.82 0.06 195);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.70 0.10 195);
+  /* Stage badge colors */
+  --stage-lead-bg: oklch(0.55 0.01 260 / 0.12);
+  --stage-lead-fg: oklch(0.45 0.02 260);
+  --stage-qualified-bg: oklch(0.62 0.15 260 / 0.12);
+  --stage-qualified-fg: oklch(0.55 0.18 260);
+  --stage-proposal-bg: oklch(0.70 0.10 195 / 0.12);
+  --stage-proposal-fg: oklch(0.62 0.10 195);
+  --stage-negotiation-bg: oklch(0.75 0.15 80 / 0.12);
+  --stage-negotiation-fg: oklch(0.65 0.16 75);
+  --stage-won-bg: oklch(0.70 0.15 165 / 0.12);
+  --stage-won-fg: oklch(0.58 0.14 165);
+  --stage-lost-bg: oklch(0.55 0.20 25 / 0.12);
+  --stage-lost-fg: oklch(0.55 0.22 25);
 }
 
 /* ── HAD IT Design System — Dark mode ── */
@@ -110,14 +124,28 @@
   --chart-3: #0e9fa6;
   --chart-4: #4dc9cc;
   --chart-5: #b3e8ea;
-  --sidebar: #142733;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #10B3BA;
-  --sidebar-primary-foreground: #142733;
-  --sidebar-accent: #1e3a4a;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #1e3a4a;
-  --sidebar-ring: #10B3BA;
+  /* Sidebar — stays dark, slightly deeper */
+  --sidebar: oklch(0.13 0.025 230);
+  --sidebar-foreground: oklch(0.85 0.02 195 / 0.75);
+  --sidebar-primary: oklch(0.70 0.10 195);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.70 0.10 195 / 0.12);
+  --sidebar-accent-foreground: oklch(0.82 0.06 195);
+  --sidebar-border: oklch(1 0 0 / 0.06);
+  --sidebar-ring: oklch(0.70 0.10 195);
+  /* Stage badge colors — dark mode */
+  --stage-lead-bg: oklch(0.70 0.01 260 / 0.15);
+  --stage-lead-fg: oklch(0.70 0.02 260);
+  --stage-qualified-bg: oklch(0.72 0.12 260 / 0.15);
+  --stage-qualified-fg: oklch(0.72 0.12 260);
+  --stage-proposal-bg: oklch(0.78 0.08 195 / 0.15);
+  --stage-proposal-fg: oklch(0.78 0.08 195);
+  --stage-negotiation-bg: oklch(0.82 0.12 85 / 0.15);
+  --stage-negotiation-fg: oklch(0.82 0.12 85);
+  --stage-won-bg: oklch(0.78 0.12 165 / 0.15);
+  --stage-won-fg: oklch(0.78 0.12 165);
+  --stage-lost-bg: oklch(0.62 0.18 25 / 0.15);
+  --stage-lost-fg: oklch(0.62 0.18 25);
 }
 
 @layer base {

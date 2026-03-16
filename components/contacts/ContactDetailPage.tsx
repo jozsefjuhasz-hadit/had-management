@@ -13,7 +13,7 @@ import {
 } from "lucide-react"
 import {
   STAGE_LABELS,
-  STAGE_BADGE_VARIANTS,
+  STAGE_BADGE_CLASSES,
   SOURCE_LABELS,
 } from "@/lib/constants"
 import { formatCurrency, formatRelativeDate } from "@/lib/format"
@@ -34,7 +34,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
   if (!contact) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-64 p-6 gap-2">
+      <div className="flex flex-col items-center justify-center min-h-64 p-8 gap-2">
         <UserIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">A kapcsolat nem található.</p>
         <Link href="/contacts" className="text-sm text-primary hover:underline">
@@ -52,7 +52,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
   const wonValue = wonDeals.reduce((sum, d) => sum + d.value, 0)
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-8 max-w-6xl">
       <Breadcrumbs
         items={[
           { label: "Kapcsolatok", href: "/contacts" },
@@ -62,7 +62,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
       {/* Contact header */}
       <div className="flex items-center gap-4">
-        <div className="size-12 rounded-full bg-primary flex items-center justify-center text-lg font-semibold text-primary-foreground">
+        <div className="size-12 rounded-full bg-gradient-to-br from-primary to-[#0e9fa6] flex items-center justify-center text-lg font-semibold text-white">
           {contact.name
             .split(" ")
             .map((w) => w[0])
@@ -70,7 +70,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
             .slice(0, 2)}
         </div>
         <div>
-          <h1 className="text-2xl font-bold">{contact.name}</h1>
+          <h1 className="text-xl font-bold">{contact.name}</h1>
           <p className="text-sm text-muted-foreground">
             {contact.title && <span>{contact.title}</span>}
             {contact.title && contact.company && <span> · </span>}
@@ -81,36 +81,36 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
       {/* Metrics */}
       <div className="grid grid-cols-3 gap-3">
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Aktív ügyletek
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">{activeDeals.length}</p>
+            <p className="text-2xl font-semibold text-primary">{activeDeals.length}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Nyitott pipeline
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">
+            <p className="text-2xl font-semibold text-primary">
               {formatCurrency(openPipelineValue, "HUF")}
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Megnyert érték
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">
+            <p className="text-2xl font-semibold text-primary">
               {formatCurrency(wonValue, "HUF")}
             </p>
           </CardContent>
@@ -121,7 +121,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         {/* Left column */}
         <div className="flex flex-col gap-4">
           {/* Contact info */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <CardTitle>Kapcsolat adatai</CardTitle>
             </CardHeader>
@@ -151,24 +151,24 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
                 </div>
               )}
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-muted-foreground">Forrás:</span>
+                <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Forrás</span>
                 <span>{SOURCE_LABELS[contact.source]}</span>
               </div>
               {contact.kamUserId && (
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Felelős (KAM):</span>
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Felelős (KAM)</span>
                   <span>{getUserName(contact.kamUserId)}</span>
                 </div>
               )}
               {contact.referredByUserId && (
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Ajánlotta:</span>
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Ajánlotta</span>
                   <span>{getUserName(contact.referredByUserId)}</span>
                 </div>
               )}
               {contact.notes && (
                 <div className="pt-2 border-t">
-                  <p className="text-xs text-muted-foreground mb-1">Megjegyzés</p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">Megjegyzés</p>
                   <p className="text-sm">{contact.notes}</p>
                 </div>
               )}
@@ -176,7 +176,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
           </Card>
 
           {/* Deals for this contact */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <CardTitle>Kapcsolódó ügyletek</CardTitle>
             </CardHeader>
@@ -191,7 +191,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
                     <Link
                       key={deal.id}
                       href={`/deals/${deal.id}`}
-                      className="flex items-center justify-between py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-colors"
+                      className="flex items-center justify-between py-2.5 hover:bg-muted/40 rounded-lg px-1 -mx-1 transition-[background-color] duration-150"
                     >
                       <div className="min-w-0">
                         <p className="text-sm font-medium truncate">
@@ -201,7 +201,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
                           {formatCurrency(deal.value, deal.currency)}
                         </p>
                       </div>
-                      <Badge variant={STAGE_BADGE_VARIANTS[deal.stage]}>
+                      <Badge className={STAGE_BADGE_CLASSES[deal.stage]}>
                         {STAGE_LABELS[deal.stage]}
                       </Badge>
                     </Link>
@@ -213,7 +213,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         </div>
 
         {/* Right column — activity timeline */}
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
             <CardTitle>Tevékenység idővonal</CardTitle>
           </CardHeader>

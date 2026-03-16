@@ -33,7 +33,7 @@ import {
   SearchIcon,
 } from "lucide-react"
 import type { Contact, ContactSource } from "@/lib/types"
-import { SOURCE_LABELS, SOURCE_BADGE_VARIANTS } from "@/lib/constants"
+import { SOURCE_LABELS, SOURCE_BADGE_CLASSES } from "@/lib/constants"
 import { formatRelativeDate } from "@/lib/format"
 import { MOCK_CONTACTS, MOCK_USERS, getUserName } from "@/lib/mock-data"
 
@@ -285,7 +285,7 @@ export default function ContactsPage() {
 
   if (isEmpty) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-8">
         <UserIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">Még nincsenek kapcsolatok.</p>
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
@@ -305,7 +305,7 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-8 max-w-6xl">
       {successMessage && (
         <Alert>
           <AlertTitle>Sikeres</AlertTitle>
@@ -366,7 +366,7 @@ export default function ContactsPage() {
       </div>
 
       {/* Contacts list */}
-      <Card>
+      <Card className="shadow-sm">
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
@@ -375,7 +375,7 @@ export default function ContactsPage() {
             </div>
           ) : (
             <div className="divide-y">
-              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground">
+              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <span>Név / Cég</span>
                 <span>Email</span>
                 <span>Forrás</span>
@@ -386,7 +386,7 @@ export default function ContactsPage() {
                 <Link
                   key={contact.id}
                   href={`/contacts/${contact.id}`}
-                  className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-colors items-center"
+                  className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 items-center"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
@@ -422,7 +422,7 @@ export default function ContactsPage() {
                   </div>
                   <div>
                     {contact.source ? (
-                      <Badge variant={SOURCE_BADGE_VARIANTS[contact.source]}>
+                      <Badge className={SOURCE_BADGE_CLASSES[contact.source]}>
                         {SOURCE_LABELS[contact.source]}
                       </Badge>
                     ) : (

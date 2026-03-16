@@ -44,7 +44,7 @@ import {
   STAGES,
   STAGE_LABELS,
   STAGE_DESCRIPTIONS,
-  STAGE_BADGE_VARIANTS,
+  STAGE_BADGE_CLASSES,
   ACTIVITY_LABELS,
 } from "@/lib/constants"
 import { formatCurrency } from "@/lib/format"
@@ -341,7 +341,7 @@ export default function DealDetailPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-8 max-w-6xl">
       <Breadcrumbs items={[{ label: "Ügyletek", href: "/deals" }, { label: deal.title }]} />
 
       {saveSuccess && (
@@ -406,7 +406,7 @@ export default function DealDetailPage() {
             </SelectContent>
           </Select>
         ) : (
-          <Badge variant={STAGE_BADGE_VARIANTS[deal.stage]}>{STAGE_LABELS[deal.stage]}</Badge>
+          <Badge className={STAGE_BADGE_CLASSES[deal.stage]}>{STAGE_LABELS[deal.stage]}</Badge>
         )}
         <span className="text-xs text-muted-foreground">{STAGE_DESCRIPTIONS[deal.stage]}</span>
       </div>
@@ -422,7 +422,7 @@ export default function DealDetailPage() {
       <div className="grid grid-cols-[1fr_320px] gap-4">
         <div className="flex flex-col gap-4">
           {/* Deal details card */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader><CardTitle>Ügylet részletei</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -520,7 +520,7 @@ export default function DealDetailPage() {
           </Card>
 
           {/* Activity timeline */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Tevékenység idővonal</CardTitle>
@@ -583,7 +583,7 @@ export default function DealDetailPage() {
 
         {/* Right column — stage history + next step */}
         <div className="flex flex-col gap-4">
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader><CardTitle>Fázis történet</CardTitle></CardHeader>
             <CardContent>
               {stageHistory.length === 0 ? (
@@ -612,7 +612,7 @@ export default function DealDetailPage() {
           </Card>
 
           {(deal.nextStepOwnerId || deal.nextStepDue) && (
-            <Card>
+            <Card className="shadow-sm">
               <CardHeader><CardTitle>Következő lépés</CardTitle></CardHeader>
               <CardContent className="space-y-1">
                 {deal.nextStepOwnerId && (

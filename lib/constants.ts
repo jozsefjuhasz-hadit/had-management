@@ -23,13 +23,13 @@ export const STAGE_DESCRIPTIONS: Record<DealStage, string> = {
   lost: "A lehetőség nem valósult meg",
 }
 
-export const STAGE_BADGE_VARIANTS: Record<DealStage, "default" | "secondary" | "outline" | "destructive"> = {
-  lead: "outline",
-  qualified: "secondary",
-  proposal: "default",
-  negotiation: "default",
-  won: "secondary",
-  lost: "destructive",
+export const STAGE_BADGE_CLASSES: Record<DealStage, string> = {
+  lead:        "bg-[var(--stage-lead-bg)] text-[var(--stage-lead-fg)] border-transparent",
+  qualified:   "bg-[var(--stage-qualified-bg)] text-[var(--stage-qualified-fg)] border-transparent",
+  proposal:    "bg-[var(--stage-proposal-bg)] text-[var(--stage-proposal-fg)] border-transparent",
+  negotiation: "bg-[var(--stage-negotiation-bg)] text-[var(--stage-negotiation-fg)] border-transparent",
+  won:         "bg-[var(--stage-won-bg)] text-[var(--stage-won-fg)] border-transparent",
+  lost:        "bg-[var(--stage-lost-bg)] text-[var(--stage-lost-fg)] border-transparent",
 }
 
 export const SOURCE_LABELS: Record<ContactSource, string> = {
@@ -39,11 +39,11 @@ export const SOURCE_LABELS: Record<ContactSource, string> = {
   other: "Egyéb",
 }
 
-export const SOURCE_BADGE_VARIANTS: Record<ContactSource, "default" | "secondary" | "outline"> = {
-  email: "secondary",
-  referral: "default",
-  linkedin: "outline",
-  other: "outline",
+export const SOURCE_BADGE_CLASSES: Record<ContactSource, string> = {
+  email:    "bg-[var(--stage-qualified-bg)] text-[var(--stage-qualified-fg)] border-transparent",
+  referral: "bg-[var(--stage-proposal-bg)] text-[var(--stage-proposal-fg)] border-transparent",
+  linkedin: "bg-[var(--stage-proposal-bg)] text-[var(--stage-proposal-fg)] border-transparent",
+  other:    "bg-[var(--stage-lead-bg)] text-[var(--stage-lead-fg)] border-transparent",
 }
 
 export const ACTIVITY_LABELS: Record<ActivityType, string> = {
