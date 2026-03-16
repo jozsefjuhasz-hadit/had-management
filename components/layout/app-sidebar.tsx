@@ -24,15 +24,15 @@ export function AppSidebar() {
   return (
     <aside className="w-56 shrink-0 border-r border-sidebar-border bg-sidebar flex flex-col">
       {/* Branding */}
-      <div className="h-14 flex items-center gap-2.5 px-4 border-b border-sidebar-border">
+      <div className="h-14 flex items-center gap-3 px-4 border-b border-sidebar-border">
         <Image
-          src="/logo/hadit-logo-for-dark-bg.svg"
+          src="/logo/hadit-wordmark.svg"
           alt="HAD IT"
           width={80}
-          height={28}
+          height={20}
           className="shrink-0"
         />
-        <span className="font-semibold text-sm text-sidebar-foreground tracking-tight">
+        <span className="text-xs font-medium text-sidebar-foreground/40 tracking-widest uppercase">
           Management
         </span>
       </div>
