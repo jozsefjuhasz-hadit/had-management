@@ -1,12 +1,12 @@
 ---
-status: draft
-last-updated: 2026-03-13
+status: approved
+last-updated: 2026-03-16
 owner: juhaszj
 doc-type: PRD
 project: had-management
 feature: Deals — CRUD + Pipeline + Stage History
 version: 1.0
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   brd: BRD-had-management.md
   implements: [S-4, S-5, S-6, BO-3, BO-4, BO-5]
@@ -196,7 +196,7 @@ Addresses: S-4, S-5, S-6, BO-3, BO-4, BO-5, debt items UX-1, UX-2, UX-3, UX-5, U
 | # | Question | Owner | Due | Status |
 |---|----------|-------|-----|--------|
 | 1 | Can activities be linked to both a contact AND a deal simultaneously, or is it one-or-the-other? (Legacy whitepaper says "contact and/or deal".) | juhaszj | TSD phase | Open — preserve legacy OR behavior |
-| 2 | Should activity edit be restricted to the original author only, or can any authenticated user edit any activity? | juhaszj | Before TSD | Open — recommend author-only; confirm with sales team |
+| 2 | Should activity edit be restricted to the original author only, or can any authenticated user edit any activity? | juhaszj | Before TSD | Resolved by ADR-6 — any user may edit any activity. |
 | 3 | What is the maximum number of activities per deal for pagination? Legacy caps at 20 from the API; is this still appropriate? | juhaszj | TSD phase | Open — suggest 50 per page |
 | 4 | How should "source: human vs. agent" be determined for stage history entries when the MCP tool is called by the AI agent? | juhaszj | TSD phase | Open — TSD decision; likely: detect from session context (MCP session vs. user session) |
 
@@ -215,7 +215,7 @@ Addresses: S-4, S-5, S-6, BO-3, BO-4, BO-5, debt items UX-1, UX-2, UX-3, UX-5, U
 
 ## 11. Next Steps
 
-- [ ] Resolve activity edit permissions question (author-only vs. all users) — owner juhaszj — before TSD
+- [x] Resolve activity edit permissions question (author-only vs. all users) — resolved by ADR-6
 - [ ] TSD: Stage history table schema — due TBD
 - [ ] TSD: Activity CRUD API design — due TBD
 - [ ] TSD: Currency conversion integration point between Deals and Reports — due TBD

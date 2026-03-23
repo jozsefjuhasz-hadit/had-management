@@ -3,10 +3,10 @@ doc-type: TSD
 project: had-management
 feature: Reports (Beta) + Multi-Currency (MNB API)
 version: 1.0
-status: draft
-date: 2026-03-14
+status: approved
+date: 2026-03-16
 author: tech-lead
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   prd: PRD-reports.md
   implements: [PRD-REP-001, PRD-REP-002, PRD-REP-003, PRD-REP-004, PRD-REP-005, PRD-REP-006, PRD-REP-010, PRD-REP-011, PRD-REP-012, PRD-REP-013]

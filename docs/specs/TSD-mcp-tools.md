@@ -3,10 +3,10 @@ doc-type: TSD
 project: had-management
 feature: MCP Tools — Full AI Agent Coverage
 version: 1.0
-status: draft
-date: 2026-03-14
+status: approved
+date: 2026-03-16
 author: tech-lead
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   prd: PRD-mcp-tools.md
   implements: [PRD-MCP-001, PRD-MCP-002, PRD-MCP-003, PRD-MCP-004, PRD-MCP-005, PRD-MCP-006, PRD-MCP-007, PRD-MCP-008, PRD-MCP-009, PRD-MCP-010, PRD-MCP-011, PRD-MCP-012, PRD-MCP-020, PRD-MCP-021, PRD-MCP-022, PRD-MCP-023]

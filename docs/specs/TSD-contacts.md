@@ -3,10 +3,10 @@ doc-type: TSD
 project: had-management
 feature: Contacts — CRUD + CSV Import (Beta)
 version: 1.0
-status: draft
-date: 2026-03-14
+status: approved
+date: 2026-03-16
 author: tech-lead
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   prd: PRD-contacts.md
   implements: [PRD-CON-001, PRD-CON-002, PRD-CON-003, PRD-CON-004, PRD-CON-005, PRD-CON-006, PRD-CON-010, PRD-CON-011, PRD-CON-012]

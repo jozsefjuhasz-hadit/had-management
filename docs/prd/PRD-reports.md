@@ -1,15 +1,15 @@
 ---
-status: draft
-last-updated: 2026-03-13
+status: approved
+last-updated: 2026-03-16
 owner: juhaszj
 doc-type: PRD
 project: had-management
 feature: Reports (Beta) + Multi-Currency (MNB API)
 version: 1.0
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   brd: BRD-had-management.md
-  implements: [S-7, S-8, S-10, BO-4]
+  implements: [S-7, S-8, BO-4]
 ---
 
 # PRD: Reports Module (Beta) + Multi-Currency (MNB API)

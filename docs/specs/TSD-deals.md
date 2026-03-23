@@ -3,10 +3,10 @@ doc-type: TSD
 project: had-management
 feature: Deals — CRUD + Pipeline + Stage History
 version: 1.0
-status: draft
-date: 2026-03-14
+status: approved
+date: 2026-03-16
 author: tech-lead
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   prd: PRD-deals.md
   implements: [PRD-DEAL-001, PRD-DEAL-002, PRD-DEAL-003, PRD-DEAL-004, PRD-DEAL-005, PRD-DEAL-006, PRD-DEAL-007, PRD-DEAL-008, PRD-DEAL-009, PRD-DEAL-010, PRD-DEAL-011, PRD-DEAL-012, PRD-DEAL-013, PRD-DEAL-014]

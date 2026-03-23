@@ -1,6 +1,6 @@
 ---
-status: draft
-last-updated: 2026-03-13
+status: approved
+last-updated: 2026-03-16
 owner: juhaszj
 type: ux-research
 subtype: handoff

@@ -1,12 +1,12 @@
 ---
-status: draft
-last-updated: 2026-03-13
+status: approved
+last-updated: 2026-03-16
 owner: juhaszj
 doc-type: PRD
 project: had-management
 feature: Authentication & Authorization
 version: 1.0
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   brd: BRD-had-management.md
   implements: [BO-1, BO-5, S-1]

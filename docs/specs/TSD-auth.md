@@ -3,10 +3,10 @@ doc-type: TSD
 project: had-management
 feature: Authentication & Authorization
 version: 1.0
-status: draft
-date: 2026-03-14
+status: approved
+date: 2026-03-16
 author: tech-lead
-approved-by: pending
+approved-by: juhaszj
 related-docs:
   prd: PRD-auth.md
   implements: [PRD-AUTH-001, PRD-AUTH-002, PRD-AUTH-003, PRD-AUTH-004, PRD-AUTH-005, PRD-AUTH-006, PRD-AUTH-010, PRD-AUTH-011, PRD-AUTH-012, PRD-AUTH-020, PRD-AUTH-021]
