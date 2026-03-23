@@ -422,7 +422,7 @@ export default function DealDetailPage() {
       <div className="grid grid-cols-[1fr_320px] gap-4">
         <div className="flex flex-col gap-4">
           {/* Deal details card */}
-          <Card className="shadow-sm">
+          <Card className="">
             <CardHeader><CardTitle>Ügylet részletei</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -520,7 +520,7 @@ export default function DealDetailPage() {
           </Card>
 
           {/* Activity timeline */}
-          <Card className="shadow-sm">
+          <Card className="">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Tevékenység idővonal</CardTitle>
@@ -583,7 +583,7 @@ export default function DealDetailPage() {
 
         {/* Right column — stage history + next step */}
         <div className="flex flex-col gap-4">
-          <Card className="shadow-sm">
+          <Card className="">
             <CardHeader><CardTitle>Fázis történet</CardTitle></CardHeader>
             <CardContent>
               {stageHistory.length === 0 ? (
@@ -612,7 +612,7 @@ export default function DealDetailPage() {
           </Card>
 
           {(deal.nextStepOwnerId || deal.nextStepDue) && (
-            <Card className="shadow-sm">
+            <Card className="">
               <CardHeader><CardTitle>Következő lépés</CardTitle></CardHeader>
               <CardContent className="space-y-1">
                 {deal.nextStepOwnerId && (

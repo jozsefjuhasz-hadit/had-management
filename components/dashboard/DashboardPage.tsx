@@ -97,7 +97,7 @@ export default function DashboardPage() {
       {/* KPI cards */}
       <div className="grid grid-cols-4 gap-4">
         {MOCK_KPIS.map((kpi) => (
-          <Card key={kpi.label} className="shadow-sm">
+          <Card key={kpi.label} className="">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -116,7 +116,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-2 gap-4">
         {/* Recent deals */}
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Legutóbbi ügyletek</CardTitle>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Upcoming next steps */}
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Következő lépések</CardTitle>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Pipeline by stage */}
-      <Card className="shadow-sm">
+      <Card className="">
         <CardHeader>
           <CardTitle>Pipeline fázis szerint</CardTitle>
           <CardDescription>

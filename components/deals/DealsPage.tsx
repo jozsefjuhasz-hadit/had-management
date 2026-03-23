@@ -395,7 +395,7 @@ export default function DealsPage() {
 
       {/* KPI summary */}
       <div className="grid grid-cols-3 gap-3">
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Aktív pipeline</CardTitle>
           </CardHeader>
@@ -404,7 +404,7 @@ export default function DealsPage() {
             <p className="text-xs text-muted-foreground">nyitott ügylet</p>
           </CardContent>
         </Card>
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Megnyert (év)</CardTitle>
           </CardHeader>
@@ -413,7 +413,7 @@ export default function DealsPage() {
             <p className="text-xs text-muted-foreground">lezárt ügylet</p>
           </CardContent>
         </Card>
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Esedékes lépések</CardTitle>
           </CardHeader>
@@ -456,7 +456,7 @@ export default function DealsPage() {
       </div>
 
       {/* Deals list */}
-      <Card className="shadow-sm">
+      <Card className="">
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">

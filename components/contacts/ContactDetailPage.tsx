@@ -62,7 +62,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
       {/* Contact header */}
       <div className="flex items-center gap-4">
-        <div className="size-12 rounded-full bg-gradient-to-br from-primary to-[#0e9fa6] flex items-center justify-center text-lg font-semibold text-white">
+        <div className="size-12 rounded-full bg-primary flex items-center justify-center text-lg font-semibold text-primary-foreground">
           {contact.name
             .split(" ")
             .map((w) => w[0])
@@ -81,7 +81,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
       {/* Metrics */}
       <div className="grid grid-cols-3 gap-3">
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Aktív ügyletek
@@ -91,7 +91,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
             <p className="text-2xl font-semibold text-primary">{activeDeals.length}</p>
           </CardContent>
         </Card>
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Nyitott pipeline
@@ -103,7 +103,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
             </p>
           </CardContent>
         </Card>
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Megnyert érték
@@ -121,7 +121,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         {/* Left column */}
         <div className="flex flex-col gap-4">
           {/* Contact info */}
-          <Card className="shadow-sm">
+          <Card className="">
             <CardHeader>
               <CardTitle>Kapcsolat adatai</CardTitle>
             </CardHeader>
@@ -176,7 +176,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
           </Card>
 
           {/* Deals for this contact */}
-          <Card className="shadow-sm">
+          <Card className="">
             <CardHeader>
               <CardTitle>Kapcsolódó ügyletek</CardTitle>
             </CardHeader>
@@ -213,7 +213,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         </div>
 
         {/* Right column — activity timeline */}
-        <Card className="shadow-sm">
+        <Card className="">
           <CardHeader>
             <CardTitle>Tevékenység idővonal</CardTitle>
           </CardHeader>

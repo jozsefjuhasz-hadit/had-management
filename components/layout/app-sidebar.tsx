@@ -49,7 +49,7 @@ export function AppSidebar() {
               href={item.href}
               className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors duration-150 ${
                 isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-[inset_3px_0_0_var(--sidebar-primary)]"
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium border-l-[3px] border-sidebar-primary"
                   : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
               }`}
             >
@@ -63,7 +63,7 @@ export function AppSidebar() {
       {/* Footer */}
       <div className="p-3 border-t border-sidebar-border">
         <div className="flex items-center gap-2">
-          <div className="size-7 rounded-full bg-gradient-to-br from-primary to-[#0e9fa6] flex items-center justify-center text-xs font-medium text-white">
+          <div className="size-7 rounded-full bg-primary flex items-center justify-center text-xs font-medium text-primary-foreground">
             KP
           </div>
           <div className="min-w-0 flex-1">
