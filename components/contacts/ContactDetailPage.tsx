@@ -34,7 +34,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
 
   if (!contact) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-64 p-8 gap-2">
+      <div className="flex flex-col items-center justify-center min-h-64 p-4 md:p-8 gap-2">
         <UserIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">A kapcsolat nem található.</p>
         <Link href="/contacts" className="text-sm text-primary hover:underline">
@@ -52,7 +52,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
   const wonValue = wonDeals.reduce((sum, d) => sum + d.value, 0)
 
   return (
-    <div className="flex flex-col gap-4 p-8 max-w-6xl">
+    <div className="flex flex-col gap-4 p-4 md:p-8 max-w-6xl">
       <Breadcrumbs
         items={[
           { label: "Kapcsolatok", href: "/contacts" },
@@ -80,8 +80,8 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-3 gap-3">
-        <Card className="">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Aktív ügyletek
@@ -91,7 +91,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
             <p className="text-2xl font-semibold text-primary">{activeDeals.length}</p>
           </CardContent>
         </Card>
-        <Card className="">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Nyitott pipeline
@@ -103,7 +103,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
             </p>
           </CardContent>
         </Card>
-        <Card className="">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Megnyert érték
@@ -117,11 +117,11 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         </Card>
       </div>
 
-      <div className="grid grid-cols-[1fr_320px] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4">
         {/* Left column */}
         <div className="flex flex-col gap-4">
           {/* Contact info */}
-          <Card className="">
+          <Card>
             <CardHeader>
               <CardTitle>Kapcsolat adatai</CardTitle>
             </CardHeader>
@@ -176,7 +176,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
           </Card>
 
           {/* Deals for this contact */}
-          <Card className="">
+          <Card>
             <CardHeader>
               <CardTitle>Kapcsolódó ügyletek</CardTitle>
             </CardHeader>
@@ -213,7 +213,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
         </div>
 
         {/* Right column — activity timeline */}
-        <Card className="">
+        <Card>
           <CardHeader>
             <CardTitle>Tevékenység idővonal</CardTitle>
           </CardHeader>
@@ -223,7 +223,7 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
                 Még nincs rögzített tevékenység.
               </p>
             ) : (
-              <div className="space-y-3">
+              <div className="relative space-y-0">
                 {activities
                   .slice()
                   .sort(
@@ -231,20 +231,26 @@ export default function ContactDetailPage({ contactId }: ContactDetailPageProps)
                       new Date(b.createdAt).getTime() -
                       new Date(a.createdAt).getTime()
                   )
-                  .map((activity) => (
-                    <div key={activity.id} className="text-sm">
-                      <div className="flex items-center gap-1">
-                        <span className="font-medium text-xs text-muted-foreground">
-                          {ACTIVITY_LABELS[activity.type]}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          · {activity.authorName}
-                        </span>
+                  .map((activity, idx, arr) => (
+                    <div key={activity.id} className="relative flex gap-3 pb-4 last:pb-0">
+                      <div className="relative flex flex-col items-center shrink-0">
+                        <div className="size-2 rounded-full bg-muted-foreground/40 mt-1.5 z-10" />
+                        {idx < arr.length - 1 && <div className="absolute top-4 bottom-0 w-px bg-border" />}
                       </div>
-                      <p className="mt-0.5">{activity.content}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {formatRelativeDate(activity.createdAt)}
-                      </p>
+                      <div className="text-sm min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="font-medium text-xs text-muted-foreground">
+                            {ACTIVITY_LABELS[activity.type]}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            · {activity.authorName}
+                          </span>
+                        </div>
+                        <p className="mt-0.5">{activity.content}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {formatRelativeDate(activity.createdAt)}
+                        </p>
+                      </div>
                     </div>
                   ))}
               </div>

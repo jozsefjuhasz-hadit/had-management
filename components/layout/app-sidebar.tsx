@@ -47,10 +47,10 @@ export function AppSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors duration-150 ${
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors duration-150 border-l-[3px] ${
                 isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium border-l-[3px] border-sidebar-primary"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium border-sidebar-primary"
+                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground border-transparent"
               }`}
             >
               <Icon className="size-4" />

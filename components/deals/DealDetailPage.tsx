@@ -38,6 +38,7 @@ import {
   UsersIcon,
   TrashIcon,
   CheckCircleIcon,
+  LoaderIcon,
 } from "lucide-react"
 import type { Deal, DealStage, Currency, ActivityType } from "@/lib/types"
 import {
@@ -47,7 +48,7 @@ import {
   STAGE_BADGE_CLASSES,
   ACTIVITY_LABELS,
 } from "@/lib/constants"
-import { formatCurrency } from "@/lib/format"
+import { formatCurrency, formatDate } from "@/lib/format"
 import { MOCK_USERS, MOCK_CONTACTS, getUserName, getContact } from "@/lib/mock-data"
 
 // ─── Local types for stage history (page-specific shape) ─────────────────────
@@ -208,13 +209,13 @@ function LogActivityForm({
           placeholder="Tevékenység leírása..."
           aria-invalid={!!contentError}
         />
-        {contentError && <p className="text-xs text-destructive">{contentError}</p>}
+        {contentError && <p className="text-xs text-destructive" role="alert">{contentError}</p>}
       </div>
 
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>Mégse</Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Mentés..." : existingActivity ? "Módosítások mentése" : "Tevékenység rögzítése"}
+          {isSubmitting ? <><LoaderIcon className="size-4 animate-spin" />Mentés...</> : existingActivity ? "Módosítások mentése" : "Tevékenység rögzítése"}
         </Button>
       </DialogFooter>
     </form>
@@ -261,7 +262,7 @@ function CloseDealDialog({
                 Elvesztett
               </Button>
             </div>
-            {outcomeError && <p className="text-xs text-destructive">{outcomeError}</p>}
+            {outcomeError && <p className="text-xs text-destructive" role="alert">{outcomeError}</p>}
           </div>
           <div className="space-y-1">
             <Label htmlFor="close-reason">Lezárás oka</Label>
@@ -269,7 +270,7 @@ function CloseDealDialog({
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>Mégse</Button>
-            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "Lezárás..." : "Megerősítés"}</Button>
+            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? <><LoaderIcon className="size-4 animate-spin" />Lezárás...</> : "Megerősítés"}</Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -341,11 +342,11 @@ export default function DealDetailPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-8 max-w-6xl">
+    <div className="flex flex-col gap-4 p-4 md:p-8 max-w-6xl">
       <Breadcrumbs items={[{ label: "Ügyletek", href: "/deals" }, { label: deal.title }]} />
 
       {saveSuccess && (
-        <Alert>
+        <Alert role="status" aria-live="polite">
           <CheckCircleIcon />
           <AlertTitle>Mentve</AlertTitle>
           <AlertDescription>Az ügylet sikeresen frissítve.</AlertDescription>
@@ -390,7 +391,7 @@ export default function DealDetailPage() {
           ) : (
             <>
               <Button variant="outline" onClick={cancelEdit} disabled={isSaving}><XIcon />Mégse</Button>
-              <Button onClick={saveEdit} disabled={isSaving}><SaveIcon />{isSaving ? "Mentés..." : "Mentés"}</Button>
+              <Button onClick={saveEdit} disabled={isSaving}><SaveIcon />{isSaving ? <><LoaderIcon className="size-4 animate-spin" />Mentés...</> : "Mentés"}</Button>
             </>
           )}
         </div>
@@ -419,10 +420,10 @@ export default function DealDetailPage() {
       )}
 
       {/* Main grid */}
-      <div className="grid grid-cols-[1fr_320px] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4">
         <div className="flex flex-col gap-4">
           {/* Deal details card */}
-          <Card className="">
+          <Card>
             <CardHeader><CardTitle>Ügylet részletei</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -460,7 +461,7 @@ export default function DealDetailPage() {
                   <Label>Várható zárás</Label>
                   {isEditing ? (
                     <Input type="date" value={editDraft.expectedClose} onChange={(e) => setEditDraft((p) => ({ ...p, expectedClose: e.target.value }))} />
-                  ) : <p className="text-sm">{deal.expectedClose || "—"}</p>}
+                  ) : <p className="text-sm">{formatDate(deal.expectedClose)}</p>}
                 </div>
               </div>
 
@@ -495,32 +496,32 @@ export default function DealDetailPage() {
                   <Label>Következő lépés határidő</Label>
                   {isEditing ? (
                     <Input type="date" value={editDraft.nextStepDue} onChange={(e) => setEditDraft((p) => ({ ...p, nextStepDue: e.target.value }))} />
-                  ) : <p className="text-sm">{deal.nextStepDue || "—"}</p>}
+                  ) : <p className="text-sm">{formatDate(deal.nextStepDue)}</p>}
                 </div>
                 <div className="space-y-1">
                   <Label>Projekt indulás (tervezett)</Label>
                   {isEditing ? (
                     <Input type="date" value={editDraft.projectStartExpected} onChange={(e) => setEditDraft((p) => ({ ...p, projectStartExpected: e.target.value }))} />
-                  ) : <p className="text-sm">{deal.projectStartExpected || "—"}</p>}
+                  ) : <p className="text-sm">{formatDate(deal.projectStartExpected)}</p>}
                 </div>
                 <div className="space-y-1">
                   <Label>Projekt indulás (tényleges)</Label>
                   {isEditing ? (
                     <Input type="date" value={editDraft.projectStartActual} onChange={(e) => setEditDraft((p) => ({ ...p, projectStartActual: e.target.value }))} />
-                  ) : <p className="text-sm">{deal.projectStartActual || "—"}</p>}
+                  ) : <p className="text-sm">{formatDate(deal.projectStartActual)}</p>}
                 </div>
                 <div className="space-y-1">
                   <Label>Projekt befejezés</Label>
                   {isEditing ? (
                     <Input type="date" value={editDraft.projectEnd} onChange={(e) => setEditDraft((p) => ({ ...p, projectEnd: e.target.value }))} />
-                  ) : <p className="text-sm">{deal.projectEnd || "—"}</p>}
+                  ) : <p className="text-sm">{formatDate(deal.projectEnd)}</p>}
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Activity timeline */}
-          <Card className="">
+          <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Tevékenység idővonal</CardTitle>
@@ -537,10 +538,13 @@ export default function DealDetailPage() {
               {activities.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground text-sm">Még nincs rögzített tevékenység.</div>
               ) : (
-                <div className="space-y-3">
-                  {activities.slice().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((activity) => (
-                    <div key={activity.id} className="flex gap-3 group">
-                      <div className="mt-0.5 shrink-0 text-muted-foreground">{ACTIVITY_ICONS[activity.type]}</div>
+                <div className="relative space-y-0">
+                  {activities.slice().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((activity, idx, arr) => (
+                    <div key={activity.id} className="flex gap-3 group relative pb-4 last:pb-0">
+                      <div className="relative flex flex-col items-center shrink-0">
+                        <div className="mt-0.5 text-muted-foreground z-10 bg-card rounded-full p-0.5">{ACTIVITY_ICONS[activity.type]}</div>
+                        {idx < arr.length - 1 && <div className="absolute top-6 bottom-0 w-px bg-border" />}
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div>
@@ -552,14 +556,14 @@ export default function DealDetailPage() {
                           </div>
                           <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                             <Dialog open={editingActivity?.id === activity.id} onOpenChange={(open) => !open && setEditingActivity(null)}>
-                              <DialogTrigger render={<Button variant="ghost" size="icon-xs" title="Szerkesztés"><EditIcon /></Button>} onClick={() => setEditingActivity(activity)} />
+                              <DialogTrigger render={<Button variant="ghost" size="icon-sm" title="Szerkesztés" aria-label="Tevékenység szerkesztése"><EditIcon /></Button>} onClick={() => setEditingActivity(activity)} />
                               <DialogContent className="sm:max-w-sm">
                                 <DialogHeader><DialogTitle>Tevékenység szerkesztése</DialogTitle></DialogHeader>
                                 {editingActivity && <LogActivityForm dealId={deal.id} existingActivity={editingActivity} onSuccess={handleActivitySuccess} onCancel={() => setEditingActivity(null)} />}
                               </DialogContent>
                             </Dialog>
                             <Dialog open={deleteActivityId === activity.id} onOpenChange={(open) => !open && setDeleteActivityId(null)}>
-                              <DialogTrigger render={<Button variant="ghost" size="icon-xs" title="Törlés"><TrashIcon /></Button>} onClick={() => setDeleteActivityId(activity.id)} />
+                              <DialogTrigger render={<Button variant="ghost" size="icon-sm" title="Törlés" aria-label="Tevékenység törlése"><TrashIcon /></Button>} onClick={() => setDeleteActivityId(activity.id)} />
                               <DialogContent className="sm:max-w-sm">
                                 <DialogHeader><DialogTitle>Tevékenység törlése</DialogTitle></DialogHeader>
                                 <p className="text-sm text-muted-foreground">Biztosan törlöd ezt a tevékenységet? Ez a művelet nem visszavonható.</p>
@@ -583,7 +587,7 @@ export default function DealDetailPage() {
 
         {/* Right column — stage history + next step */}
         <div className="flex flex-col gap-4">
-          <Card className="">
+          <Card>
             <CardHeader><CardTitle>Fázis történet</CardTitle></CardHeader>
             <CardContent>
               {stageHistory.length === 0 ? (
@@ -612,14 +616,14 @@ export default function DealDetailPage() {
           </Card>
 
           {(deal.nextStepOwnerId || deal.nextStepDue) && (
-            <Card className="">
+            <Card>
               <CardHeader><CardTitle>Következő lépés</CardTitle></CardHeader>
               <CardContent className="space-y-1">
                 {deal.nextStepOwnerId && (
                   <p className="text-sm"><span className="text-muted-foreground">Felelős: </span>{getUserName(deal.nextStepOwnerId)}</p>
                 )}
                 {deal.nextStepDue && (
-                  <p className="text-sm flex items-center gap-1"><CalendarIcon className="size-3 text-muted-foreground" />Határidő: {deal.nextStepDue}</p>
+                  <p className="text-sm flex items-center gap-1"><CalendarIcon className="size-3 text-muted-foreground" />Határidő: {formatDate(deal.nextStepDue)}</p>
                 )}
               </CardContent>
             </Card>

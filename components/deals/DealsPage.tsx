@@ -26,7 +26,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import { PageHeader } from "@/components/shared/page-header"
-import { PlusIcon, SearchIcon, TrendingUpIcon } from "lucide-react"
+import { PlusIcon, SearchIcon, TrendingUpIcon, LoaderIcon } from "lucide-react"
 import type { Deal, DealStage, Currency } from "@/lib/types"
 import {
   STAGES,
@@ -34,7 +34,7 @@ import {
   STAGE_DESCRIPTIONS,
   STAGE_BADGE_CLASSES,
 } from "@/lib/constants"
-import { formatCurrency } from "@/lib/format"
+import { formatCurrency, formatDate } from "@/lib/format"
 import { MOCK_DEALS, MOCK_CONTACTS, MOCK_USERS, getUserName, getContact } from "@/lib/mock-data"
 
 // ─── Create Deal Form ─────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@ function CreateDealForm({
           aria-invalid={!!errors.title}
         />
         {errors.title && (
-          <p className="text-xs text-destructive">{errors.title}</p>
+          <p className="text-xs text-destructive" role="alert">{errors.title}</p>
         )}
       </div>
 
@@ -147,7 +147,7 @@ function CreateDealForm({
           </SelectContent>
         </Select>
         {errors.contactId && (
-          <p className="text-xs text-destructive">{errors.contactId}</p>
+          <p className="text-xs text-destructive" role="alert">{errors.contactId}</p>
         )}
       </div>
 
@@ -305,7 +305,7 @@ function CreateDealForm({
           Mégse
         </Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Mentés..." : "Ügylet létrehozása"}
+          {isSubmitting ? <><LoaderIcon className="size-4 animate-spin" />Mentés...</> : "Ügylet létrehozása"}
         </Button>
       </DialogFooter>
     </form>
@@ -347,7 +347,7 @@ export default function DealsPage() {
 
   if (deals.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-8">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-4 md:p-8">
         <TrendingUpIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">Még nincsenek ügyletek.</p>
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
@@ -367,9 +367,9 @@ export default function DealsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-8 max-w-6xl">
+    <div className="flex flex-col gap-4 p-4 md:p-8 max-w-6xl">
       {successMessage && (
-        <Alert>
+        <Alert role="status" aria-live="polite">
           <AlertTitle>Sikeres</AlertTitle>
           <AlertDescription>{successMessage}</AlertDescription>
         </Alert>
@@ -394,8 +394,8 @@ export default function DealsPage() {
       />
 
       {/* KPI summary */}
-      <div className="grid grid-cols-3 gap-3">
-        <Card className="">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Aktív pipeline</CardTitle>
           </CardHeader>
@@ -404,7 +404,7 @@ export default function DealsPage() {
             <p className="text-xs text-muted-foreground">nyitott ügylet</p>
           </CardContent>
         </Card>
-        <Card className="">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Megnyert (év)</CardTitle>
           </CardHeader>
@@ -413,7 +413,7 @@ export default function DealsPage() {
             <p className="text-xs text-muted-foreground">lezárt ügylet</p>
           </CardContent>
         </Card>
-        <Card className="">
+        <Card>
           <CardHeader>
             <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Esedékes lépések</CardTitle>
           </CardHeader>
@@ -435,6 +435,7 @@ export default function DealsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-8"
+            aria-label="Ügyletek keresése"
           />
         </div>
         <Select
@@ -456,7 +457,7 @@ export default function DealsPage() {
       </div>
 
       {/* Deals list */}
-      <Card className="">
+      <Card>
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
@@ -464,13 +465,13 @@ export default function DealsPage() {
               <p className="text-sm">Nincs találat a szűrésre.</p>
             </div>
           ) : (
-            <div className="divide-y">
-              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                <span>Cím / Kapcsolat</span>
-                <span>Érték</span>
-                <span>Fázis</span>
-                <span>Felelős</span>
-                <span>Zárási dátum</span>
+            <div className="divide-y" role="table" aria-label="Ügyletek listája">
+              <div className="hidden md:grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground" role="row">
+                <span role="columnheader">Cím / Kapcsolat</span>
+                <span role="columnheader">Érték</span>
+                <span role="columnheader">Fázis</span>
+                <span role="columnheader">Felelős</span>
+                <span role="columnheader">Zárási dátum</span>
               </div>
               {filtered.map((deal) => {
                 const contact = getContact(deal.contactId)
@@ -478,7 +479,8 @@ export default function DealsPage() {
                   <Link
                     key={deal.id}
                     href={`/deals/${deal.id}`}
-                    className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 items-center"
+                    role="row"
+                    className="flex flex-col gap-1 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 md:grid md:grid-cols-[2fr_1.5fr_1fr_1fr_1fr] md:gap-4 md:items-center"
                   >
                     <div className="min-w-0">
                       <p className="font-medium truncate">{deal.title}</p>
@@ -500,7 +502,7 @@ export default function DealsPage() {
                       {deal.ownerId ? getUserName(deal.ownerId) : <span className="text-muted-foreground">—</span>}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {deal.expectedClose || "—"}
+                      {formatDate(deal.expectedClose)}
                     </div>
                   </Link>
                 )

@@ -19,7 +19,7 @@ import {
 } from "lucide-react"
 import type { DealStage, Currency } from "@/lib/types"
 import { STAGE_LABELS, STAGE_BADGE_CLASSES } from "@/lib/constants"
-import { formatCurrency } from "@/lib/format"
+import { formatCurrency, formatDate } from "@/lib/format"
 
 // ─── Mock data (will be replaced by server data) ─────────────────────────────
 
@@ -88,16 +88,16 @@ const MOCK_NEXT_STEPS: UpcomingStep[] = [
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 p-8 max-w-6xl">
+    <div className="flex flex-col gap-6 p-4 md:p-8 max-w-6xl">
       <PageHeader
         title="Irányítópult"
         subtitle="Jó reggelt, Péter. Itt a pipeline áttekintésed."
       />
 
       {/* KPI cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {MOCK_KPIS.map((kpi) => (
-          <Card key={kpi.label} className="">
+          <Card key={kpi.label}>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -114,15 +114,15 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Recent deals */}
-        <Card className="">
+        <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Legutóbbi ügyletek</CardTitle>
               <Link
                 href="/deals"
-                className="text-xs text-primary hover:underline flex items-center gap-0.5"
+                className="text-xs text-primary hover:underline flex items-center gap-0.5 py-1 px-1.5 -my-1 -mr-1.5 rounded"
               >
                 Összes <ChevronRightIcon className="size-3" />
               </Link>
@@ -158,13 +158,13 @@ export default function DashboardPage() {
         </Card>
 
         {/* Upcoming next steps */}
-        <Card className="">
+        <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Következő lépések</CardTitle>
               <Link
                 href="/deals"
-                className="text-xs text-primary hover:underline flex items-center gap-0.5"
+                className="text-xs text-primary hover:underline flex items-center gap-0.5 py-1 px-1.5 -my-1 -mr-1.5 rounded"
               >
                 Összes <ChevronRightIcon className="size-3" />
               </Link>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
                       </p>
                     </div>
                     <Badge variant="outline" className="shrink-0">
-                      {step.dueDate}
+                      {formatDate(step.dueDate)}
                     </Badge>
                   </Link>
                 ))}
@@ -205,7 +205,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Pipeline by stage */}
-      <Card className="">
+      <Card>
         <CardHeader>
           <CardTitle>Pipeline fázis szerint</CardTitle>
           <CardDescription>
@@ -213,29 +213,27 @@ export default function DashboardPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4 overflow-x-auto">
-            {(["lead", "qualified", "proposal", "negotiation"] as DealStage[]).map(
-              (stage) => {
-                const count = MOCK_RECENT_DEALS.filter(
-                  (d) => d.stage === stage
-                ).length
-                return (
-                  <div
-                    key={stage}
-                    className="flex flex-col items-center gap-1 min-w-20"
-                  >
-                    <Badge className={STAGE_BADGE_CLASSES[stage]}>
-                      {STAGE_LABELS[stage]}
-                    </Badge>
-                    <span className="text-2xl font-semibold">{count}</span>
-                    <span className="text-xs text-muted-foreground">
-                      ügylet
-                    </span>
+          {(() => {
+            const stages = ["lead", "qualified", "proposal", "negotiation"] as DealStage[]
+            const counts = stages.map((s) => MOCK_RECENT_DEALS.filter((d) => d.stage === s).length)
+            const total = Math.max(counts.reduce((a, b) => a + b, 0), 1)
+            return (
+              <div className="space-y-3">
+                {stages.map((stage, i) => (
+                  <div key={stage} className="flex items-center gap-3">
+                    <span className="text-sm font-medium w-28 shrink-0">{STAGE_LABELS[stage]}</span>
+                    <div className="flex-1 h-6 bg-muted rounded-md overflow-hidden">
+                      <div
+                        className={`h-full rounded-md transition-all duration-300 ${STAGE_BADGE_CLASSES[stage]}`}
+                        style={{ width: `${Math.max((counts[i] / total) * 100, counts[i] > 0 ? 8 : 0)}%` }}
+                      />
+                    </div>
+                    <span className="text-sm font-semibold w-6 text-right tabular-nums">{counts[i]}</span>
                   </div>
-                )
-              }
-            )}
-          </div>
+                ))}
+              </div>
+            )
+          })()}
         </CardContent>
       </Card>
     </div>

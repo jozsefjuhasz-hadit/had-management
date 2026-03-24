@@ -31,6 +31,7 @@ import {
   MailIcon,
   PlusIcon,
   SearchIcon,
+  LoaderIcon,
 } from "lucide-react"
 import type { Contact, ContactSource } from "@/lib/types"
 import { SOURCE_LABELS, SOURCE_BADGE_CLASSES } from "@/lib/constants"
@@ -117,7 +118,7 @@ function CreateContactForm({
           aria-invalid={!!errors.name}
         />
         {errors.name && (
-          <p className="text-xs text-destructive">{errors.name}</p>
+          <p className="text-xs text-destructive" role="alert">{errors.name}</p>
         )}
       </div>
 
@@ -156,7 +157,7 @@ function CreateContactForm({
           aria-invalid={!!errors.email}
         />
         {errors.email && (
-          <p className="text-xs text-destructive">{errors.email}</p>
+          <p className="text-xs text-destructive" role="alert">{errors.email}</p>
         )}
       </div>
 
@@ -241,7 +242,7 @@ function CreateContactForm({
           Mégse
         </Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Mentés..." : "Kapcsolat létrehozása"}
+          {isSubmitting ? <><LoaderIcon className="size-4 animate-spin" />Mentés...</> : "Kapcsolat létrehozása"}
         </Button>
       </DialogFooter>
     </form>
@@ -285,7 +286,7 @@ export default function ContactsPage() {
 
   if (isEmpty) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-8">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 min-h-64 p-4 md:p-8">
         <UserIcon className="size-10 text-muted-foreground" />
         <p className="text-muted-foreground">Még nincsenek kapcsolatok.</p>
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
@@ -305,9 +306,9 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-8 max-w-6xl">
+    <div className="flex flex-col gap-4 p-4 md:p-8 max-w-6xl">
       {successMessage && (
-        <Alert>
+        <Alert role="status" aria-live="polite">
           <AlertTitle>Sikeres</AlertTitle>
           <AlertDescription>{successMessage}</AlertDescription>
         </Alert>
@@ -340,6 +341,7 @@ export default function ContactsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-8"
+            aria-label="Kapcsolatok keresése"
           />
         </div>
         <Select
@@ -366,7 +368,7 @@ export default function ContactsPage() {
       </div>
 
       {/* Contacts list */}
-      <Card className="">
+      <Card>
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 gap-2 text-muted-foreground">
@@ -374,19 +376,20 @@ export default function ContactsPage() {
               <p className="text-sm">Nincs találat a szűrésre.</p>
             </div>
           ) : (
-            <div className="divide-y">
-              <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                <span>Név / Cég</span>
-                <span>Email</span>
-                <span>Forrás</span>
-                <span>Felelős</span>
-                <span>Utolsó interakció</span>
+            <div className="divide-y" role="table" aria-label="Kapcsolatok listája">
+              <div className="hidden md:grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground" role="row">
+                <span role="columnheader">Név / Cég</span>
+                <span role="columnheader">Email</span>
+                <span role="columnheader">Forrás</span>
+                <span role="columnheader">Felelős</span>
+                <span role="columnheader">Utolsó interakció</span>
               </div>
               {filtered.map((contact) => (
                 <Link
                   key={contact.id}
                   href={`/contacts/${contact.id}`}
-                  className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1fr] gap-4 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 items-center"
+                  role="row"
+                  className="flex flex-col gap-1 px-4 py-3 hover:bg-muted/40 cursor-pointer transition-[background-color] duration-150 md:grid md:grid-cols-[2fr_1.5fr_1fr_1fr_1fr] md:gap-4 md:items-center"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
